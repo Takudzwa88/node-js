@@ -25,6 +25,7 @@ function sayHi(){
 sayHi();
 */
 
+/*
 function callFunction(fun){
     fun();
 }
@@ -35,3 +36,25 @@ var sayBye = function(){
 };
 
 callFunction(sayBye);
+*/
+
+/*
+var stuff = require('./stuff');
+
+
+console.log(stuff.counter(['shaun', 'crystal', 'ryu']));
+console.log(stuff.adder(5, 6));
+console.log(stuff.adder(stuff.pi, 5));
+*/
+
+var events = require('events');
+
+/*
+var myEmitter = new events.EventEmitter();
+
+myEmitter.on('someEvent', function(mssg){
+    console.log(mssg);
+});
+
+myEmitter.emit('someEvent', 'the event was emitted!');
+*/
