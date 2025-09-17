@@ -115,14 +115,57 @@ fs.readFile('readMe.txt', 'utf8', function(err, data){
 
 //code
 
-var fs = require('fs');
+//var fs = require('fs');
 
-fs.unlink('writeMe.txt', function(err) {
+//To create a directory and write a file in it (asynchronous non-blocking code)
+/*fs.mkdir('stuff', function(){
+    fs.readFile('readMe.txt', 'utf8', function(err, data){  
+         fs.writeFile('./stuff/writeMe.txt', data);  
+});
+});
+*/
+
+//modern way to delete asynchronously using promises and async/await
+/*
+const fs = require('fs');
+
+fs.rm('stuff', { recursive: true, force: true }, (err) => {
+  if (err) {
+    console.error('Error deleting directory:', err);
+    return;
+  }
+  console.log('Directory deleted successfully!');
+});
+*/
+
+//To remove a directory and the file in it (asynchronous non-blocking code)
+/*fs.unlink('./stuff/writeMe.txt', function(){
+    fs.rmdir('stuff');  //to remove a directory
+});  //to delete a file
+*/
+
+//Sync means Synchronous (blocking code)
+//fs.mkdirSync('stuff'); //to create a directory
+
+//fs.rmdirSync('stuff')  //to remove a directory
+
+/*
+fs.unlink('writeMe.txt', function(err) {  //to delete a file
   if (err) {
     console.error('Error deleting file:', err);
     return;
   }
   console.log('File deleted successfully!');
 });
+*/
 
+var http = require('http');
+
+var server = http.createServer(function(req, res){
+    res.writeHead(200, {'Content-Type': 'text/plain'}); //200 means ok
+   res.end('Hey ninjas'); 
+});
+
+server.listen(3000, '127.0.0.1');
+console.log('yo dawgs, now listening to port 3000');
 
