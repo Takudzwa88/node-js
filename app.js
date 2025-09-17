@@ -83,6 +83,7 @@ myEmitter.on('someEvent', function(mssg){
 myEmitter.emit('someEvent', 'the event was emitted!');
 */
 
+/*
 var fs = require('fs');
 
 fs.readFile('readMe.txt', 'utf8', function(err, data){
@@ -113,5 +114,15 @@ fs.readFile('readMe.txt', 'utf8', function(err, data){
 //console.log('test');  //this will print before readMe.txt because readFile is non-blocking
 
 //code
+
+var fs = require('fs');
+
+fs.unlink('writeMe.txt', function(err) {
+  if (err) {
+    console.error('Error deleting file:', err);
+    return;
+  }
+  console.log('File deleted successfully!');
+});
 
 
