@@ -162,6 +162,7 @@ fs.unlink('writeMe.txt', function(err) {  //to delete a file
 var http = require('http');
 
 var server = http.createServer(function(req, res){
+    console.log('request was made: ' + req.url);
     res.writeHead(200, {'Content-Type': 'text/plain'}); //200 means ok
    res.end('Hey ninjas'); 
 });
