@@ -163,13 +163,18 @@ var http = require('http');
 var fs = require('fs');
 
 var myReadStream = fs.createReadStream(__dirname + '/readMe.txt', 'utf8');
+var myWriteStream = fs.createWriteStream(__dirname + '/writeMe.txt');
 
-myReadStream.on('data', function(chunk){
-    console.log('new chunk received:');
-    console.log(chunk);
-});
+myReadStream.pipe(myWriteStream);
 
 /*
+myReadStream.on('data', function(chunk){ // when we get some data
+    console.log('new chunk received:');  //chunk is a piece of the file
+    myWriteStream.write(chunk); //write that chunk to writeMe.txt
+});
+*/
+
+
 var server = http.createServer(function(req, res){
     console.log('request was made: ' + req.url);
     res.writeHead(200, {'Content-Type': 'text/plain'}); //200 means ok
@@ -178,4 +183,4 @@ var server = http.createServer(function(req, res){
 
 server.listen(3000, '127.0.0.1');
 console.log('yo dawgs, now listening to port 3000');
-*/
+
