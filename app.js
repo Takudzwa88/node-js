@@ -164,10 +164,34 @@ var fs = require("fs");
 
 var server = http.createServer(function (req, res) {
   console.log("request was made: " + req.url);
-  res.writeHead(200, { "Content-Type": "text/html"}); //200 means ok
-  var myReadStream = fs.createReadStream(__dirname + "/index.html", "utf8");
+    if(req.url === "/home" || req.url === "/") {
+        res.writeHead(200, {"Content-Type": "text/html"});  
+        fs.createReadStream(__dirname + "/index.html").pipe(res);
+    } else if (req.url === "/contact") {
+        res.writeHead(200, {"Content-Type": "text/html"});
+        fs.createReadStream(__dirname + "/contact.html").pipe(res);
+    } else if(req.url === "/api/ninjas")  {
+        var ninjas = [{name: 'ryu', age: 29}, {name: 'yoshi', age: 32}];
+        res.writeHead(200, {"Content-Type": "application/json"});
+        res.end(JSON.stringify(ninjas));
+    }   else {  
+                res.writeHead(404, {"Content-Type": "text/html"});
+        fs.createReadStream(__dirname + "/404.html").pipe(res);
+    }
+  //res.writeHead(200, { "Content-Type": "text/plain"}); //200 means ok
+  //res.end("feed me popcorn");
+
+  /*var myObj = {
+    name: "Ryu",
+    job: "Ninja",
+    age: 29
+  };*/
+
+  //res.end(JSON.stringify(myObj)); //send a response to the user, stringify converts a JS object to JSON format
+
+  //var myReadStream = fs.createReadStream(__dirname + "/index.html", "utf8");
   //var myWriteStream = fs.createWriteStream(__dirname + "/writeMe.txt"); //commented out because we are not writing to a file here, we want to write to a user
-  myReadStream.pipe(res);
+  //myReadStream.pipe(res);
 
 //  res.end("Hey ninjas");
 });
