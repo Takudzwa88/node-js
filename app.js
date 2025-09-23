@@ -159,6 +159,7 @@ fs.unlink('writeMe.txt', function(err) {  //to delete a file
 });
 */
 
+/*
 var http = require("http");
 var fs = require("fs");
 
@@ -167,7 +168,7 @@ var server = http.createServer(function (req, res) {
     if(req.url === "/home" || req.url === "/") {
         res.writeHead(200, {"Content-Type": "text/html"});  
         fs.createReadStream(__dirname + "/index.html").pipe(res);
-    } else if (req.url === "/contact") {
+    } else if (req.url === "/contact-us") {
         res.writeHead(200, {"Content-Type": "text/html"});
         fs.createReadStream(__dirname + "/contact.html").pipe(res);
     } else if(req.url === "/api/ninjas")  {
@@ -178,6 +179,8 @@ var server = http.createServer(function (req, res) {
                 res.writeHead(404, {"Content-Type": "text/html"});
         fs.createReadStream(__dirname + "/404.html").pipe(res);
     }
+        
+        
   //res.writeHead(200, { "Content-Type": "text/plain"}); //200 means ok
   //res.end("feed me popcorn");
 
@@ -194,14 +197,30 @@ var server = http.createServer(function (req, res) {
   //myReadStream.pipe(res);
 
 //  res.end("Hey ninjas");
-});
-
+//}); 
+/*
 server.listen(3000, "127.0.0.1");
 console.log("yo dawgs, now listening to port 3000");
-
+*/
 /*
 myReadStream.on('data', function(chunk){ // when we get some data
     console.log('new chunk received:');  //chunk is a piece of the file
     myWriteStream.write(chunk); //write that chunk to writeMe.txt
 });
 */
+
+var express = require('express');
+var app = express();
+
+app.get('/', function(req, res){
+    res.send('This is the homepage');
+});
+app.get('/contact', function(req, res){
+    res.send('This is the contact page');
+});
+
+app.get('/profile/:name', function(req, res){
+    res.send('You requested to see a profile with the name of ' + req.params.name);
+});
+
+app.listen(3000);
