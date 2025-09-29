@@ -212,14 +212,21 @@ myReadStream.on('data', function(chunk){ // when we get some data
 var express = require('express');
 var app = express();
 
+/*
 app.set('view engine', 'ejs');
-app.use('/assets', express.static('assets'));
+const path = require('path');
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+*/
+
+app.set('view engine', 'ejs');
+app.use('/assets', express.static('assets'));  //to serve static files like css and images
 
 app.get('/', function(req, res){
     res.render('index');
 });
 app.get('/contact', function(req, res){
-    res.render('contact');
+ //   console.log(req.query);
+    res.render('contact', {qs: req.query});
 });
 
 app.get('/profile/:name', function(req, res){
